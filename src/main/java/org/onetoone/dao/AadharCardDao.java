@@ -29,4 +29,18 @@ public class AadharCardDao
         }
 
     }
+    public  void updateAadharCard(int id,AadharCard aadharCard)
+    {
+        AadharCard dbAadharCard=entityManager.find(AadharCard.class,id);
+        if(dbAadharCard!=null)
+        {
+            entityManager.getTransaction().begin();
+            entityManager.merge(aadharCard);
+            entityManager.getTransaction().commit();
+        }
+        else
+        {
+            System.out.println("invalid id details");
+        }
+    }
 }
