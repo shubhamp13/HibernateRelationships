@@ -22,7 +22,16 @@ public class PersonDao
         Person dbPerson =entityManager.find(Person.class,id);
         if(dbPerson!=null)
         {
+            if(person.getAddress()==null)
+            {
+                person.setAddress(dbPerson.getAddress());
+            }
+            if(person.getName()==null)
+            {
+                person.setName(dbPerson.getName());
+            }
             entityManager.getTransaction().begin();
+            person.setId(id);
             person.setAadhar(dbPerson.getAadhar());
             entityManager.merge(person);
             entityManager.getTransaction().commit();
