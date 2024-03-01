@@ -17,7 +17,13 @@ public class PersonAadhaarController
         System.out.println("2.Add The Person Details With Aadhaar Card");
         System.out.println("3.Add The Aadhaar Card Details Of Person ");
         System.out.println("4.Update The Person Details");
+        System.out.println("5.Update Aadhaar Details");
+        System.out.println("6.Display Person details");
         int ch=Integer.parseInt(bufferedReader.readLine());
+        Person person=new Person();
+        PersonDao personDao=new PersonDao();
+        AadharCardDao aadharCardDao=new AadharCardDao();
+        AadharCard aadharCard=new AadharCard();
         switch (ch)
         {
             case 1:
@@ -28,11 +34,9 @@ public class PersonAadhaarController
                 int id= Integer.parseInt(bufferedReader.readLine());
                 System.out.println("Enter Person Address");
                 String address=bufferedReader.readLine();
-                Person person=new Person();
                 person.setName(name);
                 person.setId(id);
                 person.setAddress(address);
-                PersonDao personDao=new PersonDao();
                 personDao.savePerson(person);
             }
             break;
@@ -51,17 +55,13 @@ public class PersonAadhaarController
                 int aadhaarId=Integer.parseInt(bufferedReader.readLine());
                 System.out.println("Aadhaar Card Age ");
                 int age=Integer.parseInt(bufferedReader.readLine());
-                Person person=new Person();
                 person.setName(name);
                 person.setId(id);
                 person.setAddress(address);
-                PersonDao personDao=new PersonDao();
                 personDao.savePerson(person);
-                AadharCard aadharCard=new AadharCard();
                 aadharCard.setId(aadhaarId);
                 aadharCard.setAge(age);
                 aadharCard.setName(aadhaarName);
-                AadharCardDao aadharCardDao=new AadharCardDao();
                 aadharCardDao.saveAadharCard(id,aadharCard);
             }
             break;
@@ -76,11 +76,9 @@ public class PersonAadhaarController
                 int aadhaarId=Integer.parseInt(bufferedReader.readLine());
                 System.out.println("Aadhaar Card Age ");
                 int age=Integer.parseInt(bufferedReader.readLine());
-                AadharCard aadharCard=new AadharCard();
                 aadharCard.setId(aadhaarId);
                 aadharCard.setAge(age);
                 aadharCard.setName(aadhaarName);
-                AadharCardDao aadharCardDao=new AadharCardDao();
                 aadharCardDao.saveAadharCard(id,aadharCard);
             }
             break;
@@ -98,9 +96,7 @@ public class PersonAadhaarController
                     {
                         System.out.println("Enter Name of the Person to be Updated");
                         String newName=bufferedReader.readLine();
-                        Person person=new Person();
                         person.setName(newName);
-                        PersonDao personDao=new PersonDao();
                         personDao.updatePerson(id,person);
                     }
                     break;
@@ -108,9 +104,7 @@ public class PersonAadhaarController
                     {
                         System.out.println("Enter New Address Of the Person To be Updated");
                         String newAddress=bufferedReader.readLine();
-                        Person person=new Person();
                         person.setAddress(newAddress);
-                        PersonDao personDao=new PersonDao();
                         personDao.updatePerson(id,person);
                     }
                     break;
@@ -119,6 +113,51 @@ public class PersonAadhaarController
                 }
             }
             break;
+            case 5:
+            {
+                System.out.println("Enter Aadhaar Id Number");
+                int aadhaarId=Integer.parseInt(bufferedReader.readLine());
+                System.out.println("Enter What do you want to update");
+                System.out.println("1.Name On aadhaar card");
+                System.out.println("2.age of Aadhaar card");
+                int choice =Integer.parseInt(bufferedReader.readLine());
+                switch (choice)
+                {
+                    case 1:
+                    {
+                        System.out.println("Enter New Name To be Updated");
+                        String newName=bufferedReader.readLine();
+                        aadharCard.setName(newName);
+                        aadharCardDao.updateAadharCard(aadhaarId,aadharCard);
+                    }
+                    break;
+                    case 2:
+                    {
+                        System.out.println("Enter New age To be Updated");
+                        int newAge=Integer.parseInt(bufferedReader.readLine());
+                        aadharCard.setAge(newAge);
+                        aadharCardDao.updateAadharCard(aadhaarId,aadharCard);
+                    }
+                    break;
+                }
+
+            }
+            break;
+            case 6:
+            {
+                System.out.println("Enter Id of Person To Be Deleted");
+                int id=Integer.parseInt(bufferedReader.readLine());
+                personDao.deletePerson(id);
+            }
+            break;
+            case 7:
+            {
+                System.out.println("Enter id of aadhaar to be deleted");
+                int id=Integer.parseInt(bufferedReader.readLine());
+                personDao.displayAll(id);
+            }
+            break;
+
         }
     }
 }

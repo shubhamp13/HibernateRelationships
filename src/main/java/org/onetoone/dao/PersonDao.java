@@ -70,5 +70,11 @@ public class PersonDao
             System.out.println("Given Person Is Not Present In The Database");
         }
     }
+    public void displayAll(int id)
+    {
+        entityManager.getTransaction().begin();
+        Person person=entityManager.find(Person.class,id);
+        System.out.println(person);
+    }
 
 }

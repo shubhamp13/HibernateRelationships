@@ -13,10 +13,10 @@ public class AadharCard
 
     @Override
     public String toString() {
-        return "Aadhar{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
+        return "\n{" +
+                "Aadhaar id=" + id +
+                ", Aadhaar name='" + name + '\'' +
+                ", Aadhaar age=" + age +
                 '}';
     }
 

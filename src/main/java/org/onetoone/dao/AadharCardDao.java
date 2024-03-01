@@ -32,15 +32,41 @@ public class AadharCardDao
     public  void updateAadharCard(int id,AadharCard aadharCard)
     {
         AadharCard dbAadharCard=entityManager.find(AadharCard.class,id);
+
         if(dbAadharCard!=null)
         {
+            if(aadharCard.getName()==null)
+            {
+                aadharCard.setName(dbAadharCard.getName());
+            }
+            if(aadharCard.getAge()==0)
+            {
+                aadharCard.setAge(dbAadharCard.getAge());
+            }
             entityManager.getTransaction().begin();
+            aadharCard.setId(dbAadharCard.getId());
             entityManager.merge(aadharCard);
             entityManager.getTransaction().commit();
         }
         else
         {
             System.out.println("invalid id details");
+        }
+    }
+    public  void deleteAadhaar(int id)
+    {
+        AadharCard dbAadharCard=entityManager.find(AadharCard.class,id);
+        if(dbAadharCard!=null)
+        {
+            Person dbPerson=entityManager.find(Person.class,dbAadharCard.getId());
+            dbPerson.setAadhar(null);
+            entityManager.getTransaction().begin();
+            entityManager.remove(dbAadharCard);
+            entityManager.getTransaction().commit();
+        }
+        else
+        {
+            System.out.println("Not Found");
         }
     }
 }
